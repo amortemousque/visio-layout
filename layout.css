@@ -1,0 +1,37 @@
+body {
+    margin:0;
+    background-color: #8C012B;
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    grid-template:  "header header header" 104px
+                    "nav  main chat" 1fr
+                    "nav  foot chat" 30px
+                 / 6.6vw 1fr 23.6vw;
+}
+
+header {
+    grid-area: header;
+}
+
+nav {
+    height: 100vh;
+    background-color: #780124;
+    grid-area: nav;
+}
+
+main {
+    grid-area: main;
+    margin-inline-start: 1.875vw;
+    margin-inline-end: 1.875vw;
+    padding-block-start: 90px;
+    background-color: #36CB98;
+}
+
+.chat {
+    width: 23.6111111111vw;
+    background-color: #780124;
+    height: 100vh;
+    grid-area: chat;
+
+}
