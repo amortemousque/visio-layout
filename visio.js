@@ -12,6 +12,7 @@ function initRoom(peopleNumber) {
       name: `name ${index} `,
       type: index === 0 ? "speaker" : "viewer",
       speaking: false,
+      hasSpokenAt: 0,
       visible: true,
     }))
 
@@ -56,6 +57,7 @@ function drawGrid() {
       (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.intersectionRatio != 1) {
+            console.log("test")
             person.visible = false
           } else {
             person.visible = true
@@ -68,27 +70,31 @@ function drawGrid() {
   }
 }
 
-function speak(personIndex) {
+function speak(indexName) {
   // flag the speaker
-  people = people.map((p) => {
-    p.speaking = false
-    if (p.name.includes(`name ${personIndex} `)) p.speaking = true
-    return p
-  })
+  people = people.map((p) => ({ ...p, speaking: false }))
+  personIndex = people.findIndex((p) => p.name.includes(`name ${indexName} `))
+  people[personIndex].speaking = true
+  people[personIndex].hasSpokenAt = Number.MAX_SAFE_INTEGER
 
-  if (!people[personIndex].visible) {
-    // find a spot close to the speakers
-    let firstIndexAfterSpeakers = 1
-    for (let i = 1; i < people.length; i++) {
-      if (people[i - 1].type === "speaker" && people[i].type === "viewer") {
-        firstIndexAfterSpeakers = i
-        break
+  if (!people[personIndex].visible && people[personIndex].type !== "speaker") {
+    // find the closest spot to the speakers
+    let bestSpot = 1
+    let bestSpotHasSpokenAt = Number.MAX_SAFE_INTEGER
+    for (let i = 0; i < people.length; i++) {
+      if (people[i].type === "speaker") continue
+      if (!people[i].visible) break
+
+      if (bestSpotHasSpokenAt > people[i].hasSpokenAt) {
+        bestSpot = i
+        bestSpotHasSpokenAt = people[i].hasSpokenAt
       }
     }
     // swap the person whose speaking with the other one
-    let temp = people[firstIndexAfterSpeakers]
-    people[firstIndexAfterSpeakers] = people[personIndex]
+    let temp = people[bestSpot]
+    people[bestSpot] = people[personIndex]
     people[personIndex] = temp
+    people[personIndex].visible = true
   }
 
   drawGrid()

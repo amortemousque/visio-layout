@@ -8,6 +8,8 @@ body {
                     "nav  main chat" 1fr
                     "nav  foot chat" 30px
                  / 6.6vw 1fr 23.6vw;
+                   justify-tracks: end, center, space-around;
+
 }
 
 header {
