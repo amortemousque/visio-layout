@@ -10,17 +10,23 @@
     <style>
       :root {
         --cell-ratio: 3/2;
-        --grid-columns: 1;
+        --cell-percentage: 100%;
         --person-ratio: 3/2;
         --grid-gap: 1.73vw;
       }
 
       .grid {
         margin: 0 auto;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
         padding: var(--grid-gap);
-        display: grid;
         gap: var(--grid-gap);
-        grid-template-columns: repeat(var(--grid-columns), auto);
+
+        /* height: 80vh; */
+        /* grid-template-columns: repeat(var(--grid-columns), auto); */
       }
 
       .person {
@@ -41,29 +47,43 @@
       }
 
       .grid-1-column {
-        --grid-columns: 1;
+        --cell-percentage: 100%;
       }
 
       .grid-2-column {
         --grid-columns: 2;
+        --cell-percentage: 50%;
       }
 
       .grid-3-column {
         --grid-columns: 3;
+        --cell-percentage: 33%;
       }
 
       .grid-4-column {
         --grid-columns: 4;
         --grid-gap: 1vw;
+        --cell-percentage: 25%;
       }
 
       .grid-5-column {
         --grid-columns: 5;
         --grid-gap: 1vw;
+        --cell-percentage: 20%;
+      }
+
+      .grid-5-column.grid > div {
+        background-color: blue;
+        min-width: 50px;
+      }
+
+      .grid-5-column .speaker {
+        --cell-percentage: 40%;
       }
 
       .grid > div {
         background-color: blue;
+        flex: 0 0 calc(var(--cell-percentage) - 20px);
       }
     </style>
   </head>
@@ -74,7 +94,7 @@
     <div class="chat">Chat</div>
 
     <script>
-      initRoom(5)
+      initRoom(26)
     </script>
   </body>
 </html>

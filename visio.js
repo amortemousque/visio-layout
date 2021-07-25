@@ -45,11 +45,12 @@ function drawGrid() {
 
   for (let person of people) {
     let cell = document.createElement("div")
-    let personElement = document.createElement("div")
-    personElement.classList.add("person")
-    personElement.innerHTML = person.name
-    if (person.speaking) personElement.classList.add("speaking")
-    cell.append(personElement)
+    cell.classList.add("person")
+
+    cell.classList.add(person.type)
+
+    cell.innerHTML = person.name
+    if (person.speaking) cell.classList.add("speaking")
     document.querySelector(".grid").append(cell)
 
     // observe if a person is visible
@@ -66,7 +67,7 @@ function drawGrid() {
       },
       { threshold: 1 }
     )
-    observer.observe(personElement)
+    observer.observe(cell)
   }
 }
 
