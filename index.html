@@ -6,75 +6,20 @@
     <meta name="viewport" />
     <title>Grid</title>
     <link rel="stylesheet" href="./layout.css" />
+    <link rel="stylesheet" href="./grid.css" />
     <script src="visio.js"></script>
-    <style>
-      :root {
-        --cell-ratio: 3/2;
-        --grid-columns: 1;
-        --person-ratio: 3/2;
-        --grid-gap: 1.73vw;
-      }
-
-      .grid {
-        margin: 0 auto;
-        padding: var(--grid-gap);
-        display: grid;
-        gap: var(--grid-gap);
-        grid-template-columns: repeat(var(--grid-columns), auto);
-      }
-
-      .person {
-        background-color: red;
-      }
-
-      .person:before {
-        background-color: red;
-        content: "";
-        display: inline-block;
-        width: 1px;
-        height: 0;
-        padding-bottom: calc(100% / (var(--person-ratio)));
-      }
-
-      .person.speaking {
-        box-shadow: 3px 3px 10px 10px yellow;
-      }
-
-      .grid-1-column {
-        --grid-columns: 1;
-      }
-
-      .grid-2-column {
-        --grid-columns: 2;
-      }
-
-      .grid-3-column {
-        --grid-columns: 3;
-      }
-
-      .grid-4-column {
-        --grid-columns: 4;
-        --grid-gap: 1vw;
-      }
-
-      .grid-5-column {
-        --grid-columns: 5;
-        --grid-gap: 1vw;
-      }
-
-      .grid > div {
-        background-color: blue;
-      }
-    </style>
+    <style></style>
   </head>
   <body>
     <header>Header</header>
-    <nav></nav>
+    <nav>
+      <button onClick="zoom(2)">Zoom</button>
+    </nav>
     <main><div class="grid"></div></main>
     <div class="chat">Chat</div>
 
     <script>
-      initRoom(5)
+      initRoom(32)
     </script>
   </body>
 </html>

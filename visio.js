@@ -4,52 +4,66 @@ function clearGrid() {
 }
 
 let people = []
+let speakerNumber = 2
 
 function initRoom(peopleNumber) {
   people = Array(peopleNumber)
     .fill()
     .map((el, index) => ({
       name: `name ${index} `,
-      type: index === 0 ? "speaker" : "viewer",
+      type: index < speakerNumber ? "speaker" : "viewer",
       speaking: false,
       hasSpokenAt: 0,
       visible: true,
+      zoomed: false,
     }))
 
   drawGrid()
 }
 
+function calculatePeopleWeight(weight) {
+  return people.reduce((acc, p) => {
+    if (p.zoomed) acc += weight
+    else acc += 1
+    return acc
+  }, 0)
+}
+
 function drawGrid() {
   clearGrid()
-  const peopleNumber = people.length
-  // [<max people in the grid>, <column number>]
+
+  // [<max people in the grid>, <column number>, <people zoomed weight>]
   const peopleBreakpoints = [
-    [0, 0],
-    [1, 1],
-    [4, 2],
-    [9, 3],
-    [16, 4],
-    [20, 5],
-    [Number.MAX_SAFE_INTEGER, 5],
+    [0, 0, 1],
+    [1, 1, 1],
+    [4, 2, 1],
+    [9, 3, 4],
+    [16, 4, 4],
+    [20, 5, 4],
+    [Number.MAX_SAFE_INTEGER, 5, 4],
   ]
 
   for (let i = 1; i < peopleBreakpoints.length; i++) {
+    const peopleNumber = calculatePeopleWeight(peopleBreakpoints[i][2])
     if (
       peopleNumber > peopleBreakpoints[i - 1][0] &&
       peopleNumber <= peopleBreakpoints[i][0]
-    )
+    ) {
       document
         .querySelector(".grid")
         .classList.add("grid-" + peopleBreakpoints[i][1] + "-column")
+      break
+    }
   }
 
   for (let person of people) {
     let cell = document.createElement("div")
-    let personElement = document.createElement("div")
-    personElement.classList.add("person")
-    personElement.innerHTML = person.name
-    if (person.speaking) personElement.classList.add("speaking")
-    cell.append(personElement)
+    cell.classList.add("person")
+    cell.classList.add(person.type)
+    if (person.zoomed) cell.classList.add("zoomed")
+
+    cell.innerHTML = person.name
+    if (person.speaking) cell.classList.add("speaking")
     document.querySelector(".grid").append(cell)
 
     // observe if a person is visible
@@ -57,7 +71,6 @@ function drawGrid() {
       (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.intersectionRatio != 1) {
-            console.log("test")
             person.visible = false
           } else {
             person.visible = true
@@ -66,7 +79,7 @@ function drawGrid() {
       },
       { threshold: 1 }
     )
-    observer.observe(personElement)
+    observer.observe(cell)
   }
 }
 
@@ -97,5 +110,13 @@ function speak(indexName) {
     people[personIndex].visible = true
   }
 
+  drawGrid()
+}
+
+function zoom(zoomedPeopleNumber) {
+  for (let i = 0; i < zoomedPeopleNumber; i++) {
+    let personIndex = Math.floor(Math.random() * people.length)
+    people[personIndex].zoomed = true
+  }
   drawGrid()
 }

@@ -1,0 +1,99 @@
+ /* center last line grid 3 */
+
+      /* 2 orphan */
+
+      .grid-3-column .person:last-child:nth-child(3n - 1) {
+        grid-column-end: -2;
+      }
+
+      .grid-3-column .person:nth-last-child(2):nth-child(3n + 1) {
+        grid-column-end: 4;
+      }
+
+      /* 1 orphan */
+
+      .grid-3-column .person:last-child:nth-child(3n - 2) {
+        grid-column-end: 5;
+      }
+
+      /* center last line grid 4 */
+
+      /* 3 orphan */
+
+      .grid-4-column .person:last-child:nth-child(4n + 3) {
+        grid-column-end: 8;
+      }
+
+      .grid-4-column .person:nth-last-child(2):nth-child(4n + 2) {
+        grid-column-end: 6;
+      }
+
+      .grid-4-column .person:nth-last-child(3):nth-child(4n + 1) {
+        grid-column-end: 4;
+      }
+
+      /* 2 orphan */
+
+      .grid-4-column .person:last-child:nth-child(4n + 2) {
+        grid-column-end: 7;
+      }
+
+      .grid-4-column .person:nth-last-child(2):nth-child(4n + 1) {
+        grid-column-end: 5;
+      }
+
+      /* 1 orphan */
+
+      .grid-4-column .person:last-child:nth-child(4n + 1) {
+        grid-column-end: 6;
+      }
+
+      /* center last line grid 5 */
+
+      /* 4 orphan */
+
+      .grid-5-column.g-4-orphans .person:last-child:nth-child(5n + 4) {
+        grid-column-end: 10;
+      }
+
+      .grid-5-column.g-4-orphans .person:nth-last-child(2):nth-child(5n + 3) {
+        grid-column-end: 8;
+      }
+
+      .grid-5-column.g-4-orphans .person:nth-last-child(3):nth-child(5n + 2) {
+        grid-column-end: 6;
+      }
+
+      .grid-5-column.g-4-orphans .person:nth-last-child(4):nth-child(5n + 1) {
+        grid-column-end: 4;
+      }
+
+      /* 3 orphan */
+
+      .grid-5-column.g-3-orphans .person:last-child:nth-child(5n + 3) {
+        grid-column-end: 9;
+      }
+
+      .grid-5-column.g-3-orphans .person:nth-last-child(2):nth-child(5n + 2) {
+        grid-column-end: 7;
+      }
+
+      .grid-5-column.g-3-orphans .person:nth-last-child(3):nth-child(5n + 1) {
+        grid-column-end: 5;
+      }
+
+      /* 2 orphan */
+
+      .grid-5-column.g-2-orphans .person:last-child:nth-child(5n + 2) {
+        grid-column-end: 8;
+      }
+
+      .grid-5-column.g-2-orphans .person:nth-last-child(2):nth-child(5n + 1) {
+        grid-column-end: 6;
+      }
+
+      /* 1 orphan */
+
+      .grid-5-column.g-1-orphans .person:last-child:nth-child(5n + 1) {
+        grid-column-end: 7;
+      }
