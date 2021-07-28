@@ -1,0 +1,57 @@
+:root {
+  --grid-columns: 10;
+  --screen-ratio: 7/5;
+  --grid-gap: 1vw;
+  --vertical-grid-gap: 1.25vw;
+  --zoom-columns: 2;
+  --person-ratio: 3/2;
+}
+
+.share {
+  display: grid;
+  gap: var(--grid-gap);
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  padding: var(--grid-gap);
+}
+
+.share + .grid {
+  padding-block-start: 0;
+}
+
+.screen {
+  background-color: red;
+  grid-column: span 8;
+}
+
+.screen:before {
+  background-color: red;
+  content: "";
+  display: inline-block;
+  height: 0;
+  padding-bottom: calc(100% / (var(--screen-ratio)));
+  width: 1px;
+}
+
+.vertical-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vertical-grid-gap);
+  grid-column: span 2;
+  width: 100%;
+}
+
+/* .person {
+  background-color: red;
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.person:before {
+  background-color: red;
+  content: "";
+  display: inline-block;
+  height: 0;
+  padding-bottom: calc(100% / (var(--person-ratio)));
+  width: 1px;
+} */
