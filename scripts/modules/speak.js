@@ -4,16 +4,16 @@ export function speak(people, indexName) {
   const personIndex = people.findIndex((p) =>
     p.name.includes(`name ${indexName} `)
   )
+  console.log(people[personIndex])
   people[personIndex].speaking = true
   people[personIndex].hasSpokenAt = Date.now()
 
-  if (!people[personIndex].visible && people[personIndex].type !== "speaker") {
+  if (!people[personIndex].visible) {
     // find the closest spot to the speakers
     let bestSpot = 1
     let bestSpotHasSpokenAt = Number.MAX_SAFE_INTEGER
     for (let i = 0; i < people.length; i++) {
-      if (people[i].type === "speaker") continue
-      if (!people[i].visible) break
+      if (!people[i].visible) continue
 
       if (bestSpotHasSpokenAt > people[i].hasSpokenAt) {
         bestSpot = i

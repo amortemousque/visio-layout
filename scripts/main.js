@@ -1,7 +1,8 @@
 import { initRoom } from "./modules/room.js"
+import { drawGrid } from "./modules/draw-grid.js"
 import { speak } from "./modules/speak.js"
 import { zoom } from "./modules/zoom.js"
-import { drawGrid } from "./modules/draw-grid.js"
+import { share, doesSomeoneShare } from "./modules/share.js"
 
 let people = []
 
@@ -17,6 +18,11 @@ window.speak = (personIndex) => {
 
 window.zoom = (personIndex) => {
   zoom(people, personIndex)
+  drawGrid(people)
+}
+
+window.share = (personIndex) => {
+  share(people, personIndex)
   drawGrid(people)
 }
 

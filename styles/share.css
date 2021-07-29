@@ -6,6 +6,9 @@
   --zoom-columns: 2;
   --person-ratio: 3/2;
 }
+.share.hidden {
+  display: none;
+}
 
 .share {
   display: grid;
@@ -19,13 +22,18 @@
   padding-block-start: 0;
 }
 
-.screen {
-  background-color: red;
+.screen-container {
+  display: flex;
+  flex-direction: column;
+  grid-gap: var(--grid-gap);
   grid-column: span 8;
 }
 
-.screen:before {
+.screen {
   background-color: red;
+}
+
+.screen:before {
   content: "";
   display: inline-block;
   height: 0;
@@ -40,18 +48,3 @@
   grid-column: span 2;
   width: 100%;
 }
-
-/* .person {
-  background-color: red;
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.person:before {
-  background-color: red;
-  content: "";
-  display: inline-block;
-  height: 0;
-  padding-bottom: calc(100% / (var(--person-ratio)));
-  width: 1px;
-} */

@@ -1,12 +1,23 @@
-const originalGridClass = document.querySelector(".grid").className
-const screenSharingGrid = document.querySelector(".vertical-grid")
+const grid = document.querySelector(".grid")
+const screenGrid = document.querySelector(".vertical-grid")
+const shareSection = document.querySelector(".share")
+const screensContainer = document.querySelector(".screen-container")
+let screens = document.querySelectorAll(".screen")
+let isSharing = false
+
+function clearScreens() {
+  screensContainer.innerHTML = ""
+  screens = []
+}
 
 function clearGrid() {
-  if (document.querySelector(".vertical-grid"))
-    document.querySelector(".vertical-grid").innerHTML = ""
-
   document.querySelector(".grid").innerHTML = ""
-  document.querySelector(".grid").className = originalGridClass
+  grid.className = "grid"
+  shareSection.classList.add("hidden")
+  screenGrid.innerHTML = ""
+  if (isSharing) grid.className = "grid grid-5-column"
+
+  clearScreens()
 }
 
 function calculatePeopleWeight(people, weight) {
@@ -17,7 +28,7 @@ function calculatePeopleWeight(people, weight) {
   }, 0)
 }
 
-function changeLayout(people) {
+function changeGridLayout(people) {
   // [<max people in the grid>, <column number>, <people zoomed weight>]
   const peopleBreakpoints = [
     [0, 0, 1],
@@ -46,12 +57,23 @@ function changeLayout(people) {
   }
 }
 
+function displayScreens(screenNumber) {
+  if (screenNumber > 0) shareSection.classList.remove("hidden")
+
+  for (let i = 0; i < screenNumber; i++) {
+    const screen = document.createElement("div")
+    screen.classList.add("screen")
+    screensContainer.append(screen)
+  }
+  screens = document.querySelectorAll(".screen")
+}
+
 export function drawGrid(people) {
+  isSharing = people.some((p) => p.sharing)
+
   clearGrid()
-
-  const grid = document.querySelector(".grid")
-
-  changeLayout(people)
+  displayScreens(people.filter((p) => p.sharing).length)
+  changeGridLayout(people)
 
   for (let person of people) {
     let cell = document.createElement("div")
@@ -62,22 +84,18 @@ export function drawGrid(people) {
     cell.innerHTML = person.name
     if (person.speaking) cell.classList.add("speaking")
 
-    if (screenSharingGrid && screenSharingGrid.childElementCount < 4)
-      screenSharingGrid.append(cell)
+    if (isSharing && screenGrid.childElementCount < screens.length * 4)
+      screenGrid.append(cell)
     else grid.append(cell)
 
     // observe if a person is visible
     let observer = new IntersectionObserver(
-      (entries, observer) => {
+      (entries) => {
         entries.forEach((entry) => {
-          if (entry.intersectionRatio != 1) {
-            person.visible = false
-          } else {
-            person.visible = true
-          }
+          person.visible = entry.isIntersecting && entry.isVisible
         })
       },
-      { threshold: 1 }
+      { threshold: 1, trackVisibility: true, delay: 100 }
     )
     observer.observe(cell)
   }

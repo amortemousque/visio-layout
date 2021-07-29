@@ -7,6 +7,7 @@ export function initRoom(peopleNumber) {
     hasSpokenAt: 0,
     visible: true,
     zoomed: false,
+    sharing: false,
   }))
 
   return people
